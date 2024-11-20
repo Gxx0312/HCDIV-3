@@ -1,29 +1,28 @@
-import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
-from PIL import Image
 
 
-image_path = '9f2535997856bbf95624ddd7ab3f8b6.png'  # Replace with actual path
-image = Image.open(image_path)
+def plot_home_sales(town_names, sales_numbers, title):
+    fig, ax = plt.subplots()
+    ax.bar(town_names, sales_numbers)
+    ax.set_xlabel('Town')
+    ax.set_ylabel('Number of Houses Sold')
+    ax.set_title(title)
+    plt.xticks(rotation=90)
+    return fig
 
 
-fig, ax = plt.subplots(figsize=(10, 8))
-ax.axis('off')  # Remove axes
-
-
-text = (
-    "To analyze which towns had the best home sales over the past six months, "
-    "I sifted through the most recent six months of data and tallied the number "
-    "of home sales or total transactions in each town."
-)
-plt.text(0.5, 0.9, text, wrap=True, fontsize=12, ha='center', va='top', transform=ax.transAxes)
-
-
-ax_image = fig.add_axes([0.1, 0.2, 0.8, 0.6])  # Adjust position and size
-ax_image.imshow(image)
-ax_image.axis('off')
-
-
-plt.tight_layout()
-plt.show()
+if __name__ == "__main__":
+    town_names = [
+        'SENGKANG', 'PUNGGOL', 'WOODLANDS', 'JURONG WEST', 'TAMPINES', 'YISHUN',
+        'BUKIT BATOK', 'HOUGANG', 'CHOA CHU KANG', 'BEDOK', 'ANG MO KIO',
+        'KALLANG/WHAMPOA', 'BUKIT MERAH', 'SEMBAWANG', 'TOA PAYOH',
+        'BUKIT PANJANG', 'GEYLANG', 'QUEENSTOWN', 'PASIR RIS', 'CLEMENTI',
+        'JURONG EAST', 'BISHAN', 'CENTRAL AREA', 'MARINE PARADE', 'BUKIT TIMAH'
+    ]
+    sales_numbers = [
+        1000, 900, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300,
+        250, 200, 150, 100, 90, 80, 70, 60, 50, 40, 30, 20
+    ]
+    title = "Number of Houses Sold by Town (last 6 months)"
+    fig = plot_home_sales(town_names, sales_numbers, title)
+    fig.savefig("home_sales.png")
