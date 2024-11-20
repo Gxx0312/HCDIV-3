@@ -1,28 +1,22 @@
 import matplotlib.pyplot as plt
 
 
-def plot_home_sales(town_names, sales_numbers, title):
-    fig, ax = plt.subplots()
-    ax.bar(town_names, sales_numbers)
-    ax.set_xlabel('Town')
-    ax.set_ylabel('Number of Houses Sold')
-    ax.set_title(title)
-    plt.xticks(rotation=90)
-    return fig
+towns = [
+    'SENGKANG', 'PUNGGOL', 'WOODLANDS', 'JURONG WEST', 'TAMPINES', 'YISHUN',
+    'BUKIT BATOK', 'HOUGANG', 'CHOA CHU KANG', 'BEDOK', 'ANG MO KIO',
+    'KALLANG/WHAMPOA', 'BUKIT MERAH', 'SEMBAWANG', 'TOA PAYOH',
+    'BUKIT PANJANG', 'GEYLANG', 'QUEENSTOWN', 'PASIR RIS', 'CLEMENTI',
+    'JURONG EAST', 'BISHAN', 'CENTRAL AREA', 'MARINE PARADE', 'BUKIT TIMAH'
+]
+num_houses_sold = [
+    1000, 900, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300,
+    250, 200, 150, 100, 90, 80, 70, 60, 50, 40, 30, 20
+]
 
-
-if __name__ == "__main__":
-    town_names = [
-        'SENGKANG', 'PUNGGOL', 'WOODLANDS', 'JURONG WEST', 'TAMPINES', 'YISHUN',
-        'BUKIT BATOK', 'HOUGANG', 'CHOA CHU KANG', 'BEDOK', 'ANG MO KIO',
-        'KALLANG/WHAMPOA', 'BUKIT MERAH', 'SEMBAWANG', 'TOA PAYOH',
-        'BUKIT PANJANG', 'GEYLANG', 'QUEENSTOWN', 'PASIR RIS', 'CLEMENTI',
-        'JURONG EAST', 'BISHAN', 'CENTRAL AREA', 'MARINE PARADE', 'BUKIT TIMAH'
-    ]
-    sales_numbers = [
-        1000, 900, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300,
-        250, 200, 150, 100, 90, 80, 70, 60, 50, 40, 30, 20
-    ]
-    title = "Number of Houses Sold by Town (last 6 months)"
-    fig = plot_home_sales(town_names, sales_numbers, title)
-    fig.savefig("home_sales.png")
+plt.bar(towns, num_houses_sold)
+plt.xlabel('Town')
+plt.ylabel('Number of Houses Sold')
+plt.title('Number of Houses Sold by Town (last 6 months)')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.show()
