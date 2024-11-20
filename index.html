@@ -1,29 +1,30 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+from PIL import Image
 
-# 读取数据文件
-file_path = 'ResaleflatpricesbasedonregistrationdatefromJan2017onwards.csv'
-data = pd.read_csv(file_path)
+# Load the image file (replace 'chart.png' with your image file name)
+image_path = 'chart.png'  # Make sure this file is in the same directory
+image = Image.open(image_path)
 
-# 转换 'month' 列为日期格式
-data['month'] = pd.to_datetime(data['month'], format='%Y-%m')
+# Create a figure
+fig, ax = plt.subplots(figsize=(10, 8))
+ax.axis('off')  # Remove axes
 
-# 筛选最近六个月的数据
-latest_date = data['month'].max()
-six_months_ago = latest_date - pd.DateOffset(months=6)
-recent_data = data[data['month'] > six_months_ago]
+# Add the descriptive text
+text = (
+    "To analyze which towns had the best home sales over the past six months, "
+    "I sifted through the most recent six months of data and tallied the number "
+    "of home sales or total transactions in each town."
+)
+plt.text(0.5, 0.9, text, wrap=True, fontsize=12, ha='center', va='top', transform=ax.transAxes)
 
-# 按 'town' 分组计算销售量和总成交额
-sales_summary = recent_data.groupby('town').agg({'resale_price': ['count', 'sum']})
-sales_summary.columns = ['sales_count', 'total_resale_value']
-sales_summary = sales_summary.sort_values(by='sales_count', ascending=False)
+# Display the image below the text
+ax_image = fig.add_axes([0.1, 0.2, 0.8, 0.6])  # Adjust position and size
+ax_image.imshow(image)
+ax_image.axis('off')
 
-# 绘制柱状图
-plt.figure(figsize=(12, 6))
-sales_summary['sales_count'].plot(kind='bar', color='skyblue', edgecolor='black')
-plt.title('Number of Houses Sold by Town (Last 6 Months)', fontsize=16)
-plt.ylabel('Number of Houses Sold', fontsize=12)
-plt.xlabel('Town', fontsize=12)
-plt.xticks(rotation=45, ha='right')
+# Save the result as a new image file or display it
+output_path = 'analysis_result.png'
 plt.tight_layout()
+plt.savefig(output_path)
+print(f"Analysis result saved to {output_path}")
 plt.show()
