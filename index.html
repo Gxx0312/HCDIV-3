@@ -1,29 +1,29 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
+from PIL import Image
 
-# Load the data file
-file_path = 'path_to_your_file.csv'  # Replace with the actual file path
-data = pd.read_csv(file_path)
+# Load the image (replace 'image_path' with the actual image file path)
+image_path = '9f2535997856bbf95624ddd7ab3f8b6.png'  # Replace with actual path
+image = Image.open(image_path)
 
-# Convert 'month' column to datetime format
-data['month'] = pd.to_datetime(data['month'], format='%Y-%m')
+# Create a figure
+fig, ax = plt.subplots(figsize=(10, 8))
+ax.axis('off')  # Remove axes
 
-# Filter data for the last six months from the most recent date in the dataset
-latest_date = data['month'].max()
-six_months_ago = latest_date - pd.DateOffset(months=6)
-recent_data = data[data['month'] > six_months_ago]
+# Add the descriptive text
+text = (
+    "To analyze which towns had the best home sales over the past six months, "
+    "I sifted through the most recent six months of data and tallied the number "
+    "of home sales or total transactions in each town."
+)
+plt.text(0.5, 0.9, text, wrap=True, fontsize=12, ha='center', va='top', transform=ax.transAxes)
 
-# Group data by 'town' and calculate total sales count and sum of resale prices
-sales_summary = recent_data.groupby('town').agg({'resale_price': ['count', 'sum']})
-sales_summary.columns = ['sales_count', 'total_resale_value']
-sales_summary = sales_summary.sort_values(by='sales_count', ascending=False)
+# Display the image below the text
+ax_image = fig.add_axes([0.1, 0.2, 0.8, 0.6])  # Adjust position and size
+ax_image.imshow(image)
+ax_image.axis('off')
 
-# Generate a bar plot showing the number of sales by town
-plt.figure(figsize=(12, 6))
-sales_summary['sales_count'].plot(kind='bar', color='skyblue', edgecolor='black')
-plt.title('Number of Houses Sold by Town (Last 6 Months)', fontsize=16)
-plt.ylabel('Number of Houses Sold', fontsize=12)
-plt.xlabel('Town', fontsize=12)
-plt.xticks(rotation=45, ha='right')
+# Show the final output
 plt.tight_layout()
 plt.show()
