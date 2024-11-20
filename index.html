@@ -1,0 +1,29 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the data file
+file_path = 'path_to_your_file.csv'  # Replace with the actual file path
+data = pd.read_csv(file_path)
+
+# Convert 'month' column to datetime format
+data['month'] = pd.to_datetime(data['month'], format='%Y-%m')
+
+# Filter data for the last six months from the most recent date in the dataset
+latest_date = data['month'].max()
+six_months_ago = latest_date - pd.DateOffset(months=6)
+recent_data = data[data['month'] > six_months_ago]
+
+# Group data by 'town' and calculate total sales count and sum of resale prices
+sales_summary = recent_data.groupby('town').agg({'resale_price': ['count', 'sum']})
+sales_summary.columns = ['sales_count', 'total_resale_value']
+sales_summary = sales_summary.sort_values(by='sales_count', ascending=False)
+
+# Generate a bar plot showing the number of sales by town
+plt.figure(figsize=(12, 6))
+sales_summary['sales_count'].plot(kind='bar', color='skyblue', edgecolor='black')
+plt.title('Number of Houses Sold by Town (Last 6 Months)', fontsize=16)
+plt.ylabel('Number of Houses Sold', fontsize=12)
+plt.xlabel('Town', fontsize=12)
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
