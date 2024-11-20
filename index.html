@@ -1,18 +1,28 @@
 import matplotlib.pyplot as plt
 from PIL import Image
+
+
 image_path = 'chart.png'  # Make sure this file is in the same directory
 image = Image.open(image_path)
+
+
 fig, ax = plt.subplots(figsize=(10, 8))
 ax.axis('off')  # Remove axes
+
+
 text = (
     "To analyze which towns had the best home sales over the past six months, "
     "I sifted through the most recent six months of data and tallied the number "
     "of home sales or total transactions in each town."
 )
 plt.text(0.5, 0.9, text, wrap=True, fontsize=12, ha='center', va='top', transform=ax.transAxes)
+
+
 ax_image = fig.add_axes([0.1, 0.2, 0.8, 0.6])  # Adjust position and size
 ax_image.imshow(image)
 ax_image.axis('off')
+
+
 output_path = 'analysis_result.png'
 plt.tight_layout()
 plt.savefig(output_path)
