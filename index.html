@@ -1,30 +1,22 @@
 import matplotlib.pyplot as plt
-from PIL import Image
 
 
-image_path = 'chart.png'  # Make sure this file is in the same directory
-image = Image.open(image_path)
+towns = [
+    'SENGKANG', 'PUNGGOL', 'WOODLANDS', 'JURONG WEST', 'TAMPINES', 'YISHUN',
+    'BUKIT BATOK', 'HOUGANG', 'CHOA CHU KANG', 'BEDOK', 'ANG MO KIO',
+    'KALLANG/WHAMPOA', 'BUKIT MERAH', 'SEMBAWANG', 'TOA PAYOH',
+    'BUKIT PANJANG', 'GEYLANG', 'QUEENSTOWN', 'PASIR RIS', 'CLEMENTI',
+    'JURONG EAST', 'BISHAN', 'CENTRAL AREA', 'MARINE PARADE', 'BUKIT TIMAH'
+]
+num_houses_sold = [
+    1000, 900, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300,
+    250, 200, 150, 100, 90, 80, 70, 60, 50, 40, 30, 20
+]
 
-
-fig, ax = plt.subplots(figsize=(10, 8))
-ax.axis('off')  # Remove axes
-
-
-text = (
-    "To analyze which towns had the best home sales over the past six months, "
-    "I sifted through the most recent six months of data and tallied the number "
-    "of home sales or total transactions in each town."
-)
-plt.text(0.5, 0.9, text, wrap=True, fontsize=12, ha='center', va='top', transform=ax.transAxes)
-
-
-ax_image = fig.add_axes([0.1, 0.2, 0.8, 0.6])  # Adjust position and size
-ax_image.imshow(image)
-ax_image.axis('off')
-
-
-output_path = 'analysis_result.png'
+plt.bar(towns, num_houses_sold)
+plt.xlabel('Town')
+plt.ylabel('Number of Houses Sold')
+plt.title('Number of Houses Sold by Town (last 6 months)')
+plt.xticks(rotation=90)
 plt.tight_layout()
-plt.savefig(output_path)
-print(f"Analysis result saved to {output_path}")
-plt.show()
+plt.savefig('houses_sold.png')
