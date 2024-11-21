@@ -1,15 +1,15 @@
 import matplotlib.pyplot as plt
 from PIL import Image
 
-# Load the image file (replace 'chart.png' with your image file name)
+
 image_path = 'chart.png'  # Make sure this file is in the same directory
 image = Image.open(image_path)
 
-# Create a figure
+
 fig, ax = plt.subplots(figsize=(10, 8))
 ax.axis('off')  # Remove axes
 
-# Add the descriptive text
+
 text = (
     "To analyze which towns had the best home sales over the past six months, "
     "I sifted through the most recent six months of data and tallied the number "
@@ -17,12 +17,12 @@ text = (
 )
 plt.text(0.5, 0.9, text, wrap=True, fontsize=12, ha='center', va='top', transform=ax.transAxes)
 
-# Display the image below the text
+
 ax_image = fig.add_axes([0.1, 0.2, 0.8, 0.6])  # Adjust position and size
 ax_image.imshow(image)
 ax_image.axis('off')
 
-# Save the result as a new image file or display it
+
 output_path = 'analysis_result.png'
 plt.tight_layout()
 plt.savefig(output_path)
