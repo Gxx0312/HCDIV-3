@@ -1,22 +1,83 @@
-import matplotlib.pyplot as plt
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat Type Price Comparison</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Flat Type Average Prices (Jan - Jun 2024)</h1>
+    <canvas id="priceChart" width="800" height="400"></canvas>
 
-
-towns = [
-    'SENGKANG', 'PUNGGOL', 'WOODLANDS', 'JURONG WEST', 'TAMPINES', 'YISHUN',
-    'BUKIT BATOK', 'HOUGANG', 'CHOA CHU KANG', 'BEDOK', 'ANG MO KIO',
-    'KALLANG/WHAMPOA', 'BUKIT MERAH', 'SEMBAWANG', 'TOA PAYOH',
-    'BUKIT PANJANG', 'GEYLANG', 'QUEENSTOWN', 'PASIR RIS', 'CLEMENTI',
-    'JURONG EAST', 'BISHAN', 'CENTRAL AREA', 'MARINE PARADE', 'BUKIT TIMAH'
-]
-num_houses_sold = [
-    1000, 900, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300,
-    250, 200, 150, 100, 90, 80, 70, 60, 50, 40, 30, 20
-]
-
-plt.bar(towns, num_houses_sold)
-plt.xlabel('Town')
-plt.ylabel('Number of Houses Sold')
-plt.title('Number of Houses Sold by Town (last 6 months)')
-plt.xticks(rotation=90)
-plt.tight_layout()
-plt.savefig('houses_sold.png')
+    <script>
+        const labels = ["Jan-24", "Feb-24", "Mar-24", "Apr-24", "May-24", "Jun-24"];
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: "1 ROOM",
+                    data: [0, 0, 230000, 242000, 0, 0],
+                    borderColor: "blue",
+                    backgroundColor: "rgba(54, 162, 235, 0.5)",
+                },
+                {
+                    label: "2 ROOM",
+                    data: [325231.3, 332552, 333936.9, 334691.6, 339112.5],
+                    borderColor: "green",
+                    backgroundColor: "rgba(75, 192, 192, 0.5)",
+                },
+                {
+                    label: "3 ROOM",
+                    data: [420368.7, 425037.2, 423526.2, 432521.8, 442421],
+                    borderColor: "red",
+                    backgroundColor: "rgba(255, 99, 132, 0.5)",
+                },
+                {
+                    label: "4 ROOM",
+                    data: [597705.1, 599264, 610396.4, 613105.3, 635019.6],
+                    borderColor: "orange",
+                    backgroundColor: "rgba(255, 159, 64, 0.5)",
+                },
+                {
+                    label: "5 ROOM",
+                    data: [712134.7, 691992.7, 706353.1, 718075.6, 743970.7],
+                    borderColor: "purple",
+                    backgroundColor: "rgba(153, 102, 255, 0.5)",
+                },
+                {
+                    label: "EXECUTIVE",
+                    data: [865608.3, 843498.8, 851162.4, 857144.4, 876112.8],
+                    borderColor: "brown",
+                    backgroundColor: "rgba(201, 203, 207, 0.5)",
+                },
+            ],
+        };
+        const config = {
+            type: "line",
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: "top",
+                    },
+                    title: {
+                        display: true,
+                        text: "Flat Type Average Prices in Bedok (Jan - Jun 2024)",
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                    },
+                },
+            },
+        };
+        const priceChart = new Chart(
+            document.getElementById("priceChart"),
+            config
+        );
+    </script>
+</body>
+</html>
